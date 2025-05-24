@@ -1,0 +1,2 @@
+2025-05-24 11:19:52.971 | ERROR    | core_apps.user_auth.views:get:11 - This is a error message
+2025-05-24 11:19:52.971 | CRITICAL | core_apps.user_auth.views:get:12 - This is a critical message

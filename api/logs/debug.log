@@ -1,0 +1,3 @@
+2025-05-24 11:19:52.962 | DEBUG    | core_apps.user_auth.views:get:8 - This is a debug message
+2025-05-24 11:19:52.970 | INFO     | core_apps.user_auth.views:get:9 - This is a info message
+2025-05-24 11:19:52.971 | WARNING  | core_apps.user_auth.views:get:10 - This is a warning message
