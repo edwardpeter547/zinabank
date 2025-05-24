@@ -9,7 +9,6 @@ if path.isfile(local_env_file):
     load_dotenv(local_env_file)
 
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-vmz)cr6m%ix@08@=l2of=7ji2k$f$ju!__el34u5llgz^te#)*'
 SECRET_KEY = getenv("SECRET_KEY")
