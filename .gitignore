@@ -181,3 +181,6 @@ api/staticfiles/
 # Environment variables
 api/.envs/*
 !api/.envs/.env.example
+
+# Logs
+api/logs

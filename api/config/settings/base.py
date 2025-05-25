@@ -1,5 +1,5 @@
 
-
+import sys
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv, path
@@ -155,19 +155,19 @@ LOGGING_CONFIG = None
 LOGURU_LOGGING = {
     "handlers": [
         {
-            "sink": BASE_DIR / "logs/debug.log",
+            "sink": str(BASE_DIR / "logs/debug.log"),
             "level": "DEBUG",
             "filter": lambda record: record["level"].no <= logger.level("WARNING").no,
             "format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} - {message}",
-            "rotation": "10MB",
+            "rotation": "10 MB",
             "retention": "30 days",
             "compression": "zip",
         },
         {
-            "sink": BASE_DIR / "logs/error.log",
+            "sink": str(BASE_DIR / "logs/error.log"),
             "level": "ERROR",
             "format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} - {message}",
-            "rotation": "10MB",
+            "rotation": "10 MB",
             "retention": "30 days",
             "compression": "zip",
             "backtrace": True,
