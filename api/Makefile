@@ -41,3 +41,6 @@ reset-containers:
 	docker network create banker_local_nw
 	docker compose up --build -d --remove-orphans
 
+logs-api:
+	docker compose logs api
+
