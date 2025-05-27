@@ -44,3 +44,6 @@ reset-containers:
 logs-api:
 	docker compose logs api
 
+run-test:
+	docker compose run --rm api python manage.py test $(if $(app),$(app))
+
