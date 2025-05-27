@@ -12,8 +12,8 @@ jobs:
 
             - name: Set up environment variables for Docker
               run: |
-                mkdir -p .envs
-                cat <<EOF > .envs/.env.local
+                mkdir -p api/.envs
+                cat <<EOF > api/.envs/.env.local
                 SECRET_KEY=${{ secrets.SECRET_KEY }}
                 POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
                 POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
