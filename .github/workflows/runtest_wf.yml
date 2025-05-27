@@ -12,26 +12,23 @@ jobs:
 
             - name: Set up environment variables for Docker
               run: |
-                mkdir -p .envs
-                cat <<EOF > .envs/.env.local
+                mkdir -p api/.envs
+                cat <<EOF > api/.envs/.env.test
                 SECRET_KEY=${{ secrets.SECRET_KEY }}
                 POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
                 POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
                 POSTGRES_DB=${{ secrets.POSTGRES_DB }}
                 POSTGRES_USER=${{ secrets.POSTGRES_USER }}
                 POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+                ADMIN_URL=${{ secrets.ADMIN_URL }}
+                CI=${{ secrets.CI }}
+                BANK_NAME=${{ secrets.BANK_NAME }}
                 DEBUG=1
                 EOF
-            
-            - name: Set up Docker Compose
-              run: make build
-
-            - name: Wait for services to be ready
-              run: sleep 15
 
             - name: Run ZinaBank Tests
-              run: make run-test
+              run: make -C api gha-run-test
 
             - name: Tear down
               if: always()
-              run: make down -v
+              run: make -C api gha-down-test

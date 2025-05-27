@@ -180,7 +180,8 @@ api/staticfiles/
 
 # Environment variables
 api/.envs/*
-!api/.envs/.env.example
+!api/.envs/.env.local.example
+!api/.envs/.env.test.example
 
 # Logs
 api/logs

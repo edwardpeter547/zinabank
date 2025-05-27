@@ -1,0 +1,39 @@
+services:
+  api: &api
+    build: 
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    volumes:
+      - .:/app:z
+      - banker_logs:/app/logs
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.envs/.env.test
+    depends_on:
+      - postgres
+    command: make gha-run-test
+    networks:
+      - banker_test_nw
+
+  
+  postgres:
+    build: 
+      context: .
+      dockerfile: ./docker/local/postgres/Dockerfile
+    ports:
+      - "5432:5432"
+    volumes:
+      - banker_test_db:/var/lib/postgresql/data
+    env_file:
+      - ./.envs/.env.test
+    networks:
+      - banker_test_nw
+
+networks:
+  banker_test_nw: {}
+
+volumes:
+  banker_test_db: {}
+  banker_logs: {}
+
