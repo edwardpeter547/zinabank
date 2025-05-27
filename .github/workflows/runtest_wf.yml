@@ -24,14 +24,14 @@ jobs:
                 EOF
             
             - name: Set up Docker Compose
-              run: make build
+              run: make -C api build
 
             - name: Wait for services to be ready
               run: sleep 15
 
             - name: Run ZinaBank Tests
-              run: make run-test
+              run: make -C api run-test
 
             - name: Tear down
               if: always()
-              run: make down -v
+              run: make -C api down -v
