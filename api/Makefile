@@ -47,3 +47,9 @@ logs-api:
 run-test:
 	docker compose run --rm api python manage.py test $(if $(app),$(app))
 
+gha-run-test:
+	docker compose -f docker-compose.test.yml run --rm api python manage.py test
+
+gha-down-test:
+	docker compose -f docker-compose.test.yml down -v
+

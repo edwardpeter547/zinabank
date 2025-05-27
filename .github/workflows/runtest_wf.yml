@@ -22,16 +22,10 @@ jobs:
                 POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
                 DEBUG=1
                 EOF
-            
-            - name: Set up Docker Compose
-              run: make -C api build
-
-            - name: Wait for services to be ready
-              run: sleep 15
 
             - name: Run ZinaBank Tests
-              run: make -C api run-test
+              run: make -C api gha-run-test
 
             - name: Tear down
               if: always()
-              run: make -C api down -v
+              run: make -C api gha-down-test
