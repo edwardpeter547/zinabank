@@ -5,6 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv, path
 from loguru import logger
+from common.startup import get_logger_config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
@@ -171,29 +172,9 @@ SPECTACULAR_SETTINGS = {
 
 LOGGING_CONFIG = None
 
-LOGURU_LOGGING = {
-    "handlers": [
-        {
-            "sink": str(BASE_DIR / "logs/debug.log"),
-            "level": "DEBUG",
-            "filter": lambda record: record["level"].no <= logger.level("WARNING").no,
-            "format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} - {message}",
-            "rotation": "10 MB",
-            "retention": "30 days",
-            "compression": "zip",
-        },
-        {
-            "sink": str(BASE_DIR / "logs/error.log"),
-            "level": "ERROR",
-            "format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} - {message}",
-            "rotation": "10 MB",
-            "retention": "30 days",
-            "compression": "zip",
-            "backtrace": True,
-            "diagnose": True,
-        },
-    ],
-}
+LOGS_DIR = path.join(BASE_DIR, "logs")
+
+LOGURU_LOGGING = get_logger_config(command_line_args=sys.argv, logs_directory=LOGS_DIR)
 
 logger.configure(**LOGURU_LOGGING)
 
