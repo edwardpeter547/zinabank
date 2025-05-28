@@ -7,9 +7,10 @@ services:
       - .:/app:z
       - ./logs:/app/logs
       - ./staticfiles:/app/staticfiles
-      # - ./staticfiles:/app/staticfiles
-    ports:
-      - "8000:8000"
+    # ports:
+    #   - "8000:8000"
+    expose:
+      - 8000
     env_file:
       - ./.envs/.env.local
     depends_on:
@@ -38,7 +39,7 @@ services:
     env_file:
       - ./.envs/.env.local
     ports:
-      - "8080:80"
+      - "8081:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     networks:
@@ -59,6 +60,32 @@ services:
     networks:
       - banker_local_nw
 
+  nginx:
+    build: 
+      context: ./docker/local/nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./staticfiles:/app/staticfiles
+      - nginx_logs_store:/var/log/nginx
+    depends_on:
+      - api
+    networks:
+      - banker_local_nw
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    
+
 networks:
   banker_local_nw:
     external: true
@@ -66,9 +93,9 @@ networks:
 volumes:
   banker_local_db:
   banker_mailpit_db:
-  # banker_logs:
-  # banker_staticfiles:
   pgadmin_data:
+  nginx_logs_store:
+  portainer_data:
 
 
 
