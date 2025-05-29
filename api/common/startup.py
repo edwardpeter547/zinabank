@@ -1,10 +1,8 @@
 import sys
 from os import path
-from . import get_bool_env
 from loguru import logger
-from typing import List
 
-def _get_file_logger_config(log_directory: str) -> dict:
+def get_file_logger_config(log_directory: str) -> dict:
     logger_config = {
         "handlers": [
             {
@@ -30,7 +28,7 @@ def _get_file_logger_config(log_directory: str) -> dict:
     }
     return logger_config
 
-def _get_stdout_logger_config() -> dict:
+def get_stdout_logger_config() -> dict:
     stdout_logger_config = {
         "handlers": [
             {
@@ -41,11 +39,3 @@ def _get_stdout_logger_config() -> dict:
         ]
     }
     return stdout_logger_config
-
-def get_logger_config(command_line_args: List[str], logs_directory: str):
-
-    IS_TEST_OR_CI = 'test' in command_line_args or get_bool_env(env_var_name="CI")
-
-    if IS_TEST_OR_CI:
-        return _get_stdout_logger_config()
-    return _get_file_logger_config(logs_directory)

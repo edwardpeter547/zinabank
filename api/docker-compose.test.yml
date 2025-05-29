@@ -1,11 +1,11 @@
 services:
-  api: &api
+  api_test: &api_test
     build: 
       context: .
-      dockerfile: ./docker/local/django/Dockerfile
+      dockerfile: ./docker/local/testing/Dockerfile
     volumes:
       - .:/app:z
-      - banker_logs:/app/logs
+      - banker_test_logs:/app/logs
     ports:
       - "8000:8000"
     env_file:
@@ -35,5 +35,5 @@ networks:
 
 volumes:
   banker_test_db: {}
-  banker_logs: {}
+  banker_test_logs: {}
 

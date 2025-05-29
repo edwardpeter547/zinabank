@@ -3,9 +3,8 @@ import sys
 from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
-from os import getenv, path
-from loguru import logger
-from common.startup import get_logger_config
+from os import path
+from common import get_database_config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
@@ -91,15 +90,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': getenv("POSTGRES_DB"),
-        'USER': getenv("POSTGRES_USER"),
-        'PASSWORD': getenv("POSTGRES_PASSWORD"),
-        'HOST': getenv("POSTGRES_HOST"),
-        'PORT': getenv("POSTGRES_PORT"),
-    }
+    'default': get_database_config(BASE_DIR)
 }
+
+BANK_NAME = "Zina Bank"
+
+ADMIN_URL = "testurl/"
 
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
@@ -172,15 +168,10 @@ SPECTACULAR_SETTINGS = {
 
 LOGGING_CONFIG = None
 
-LOGS_DIR = path.join(BASE_DIR, "logs")
+MAX_UPLOAD_SIZE = 1 * 1024 * 1024
 
-LOGURU_LOGGING = get_logger_config(command_line_args=sys.argv, logs_directory=LOGS_DIR)
+LOCKOUT_DURATION = timedelta(minutes=1)
 
-logger.configure(**LOGURU_LOGGING)
+LOGIN_ATTEMPTS = 3
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {"loguru": {"class": "interceptor.InterceptHandler"}},
-    "root": {"handlers": ["loguru"], "level": "DEBUG"},
-}
+OPT_EXPIRATION  = timedelta(minutes=1)

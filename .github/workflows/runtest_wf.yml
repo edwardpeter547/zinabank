@@ -1,4 +1,4 @@
-name: Django Tests
+name: ZinaBank Test Suite
 
 on: [push, pull_request]
 
@@ -14,21 +14,19 @@ jobs:
               run: |
                 mkdir -p api/.envs
                 cat <<EOF > api/.envs/.env.test
+                USE_POSTGRES=1
+                DJANGO_SETTINGS_MODULE=config.settings.testing
                 SECRET_KEY=${{ secrets.SECRET_KEY }}
                 POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
                 POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
                 POSTGRES_DB=${{ secrets.POSTGRES_DB }}
                 POSTGRES_USER=${{ secrets.POSTGRES_USER }}
                 POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-                ADMIN_URL=${{ secrets.ADMIN_URL }}
-                CI=${{ secrets.CI }}
-                BANK_NAME=${{ secrets.BANK_NAME }}
-                DEBUG=1
                 EOF
 
             - name: Run ZinaBank Tests
-              run: make -C api gha-run-test
+              run: make -C api_test gha-run-test
 
             - name: Tear down
               if: always()
-              run: make -C api gha-down-test
+              run: make -C api_test gha-down-test

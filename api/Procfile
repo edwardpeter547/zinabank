@@ -1,0 +1,4 @@
+web: python manage.py runserver 0.0.0.0:8000
+worker: celery -A config.celery_app worker -l INFO
+beat: celery -A config.celery_app beat -l INFO
+flower: celery -A config.celery_app flower -b $CELERY_BROKER_URL --basic_auth=$CELERY_FLOWER_USER:$CELERY_FLOWER_PASSWORD

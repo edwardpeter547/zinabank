@@ -1,3 +1,5 @@
+# Dev Containers make commands
+
 build:
 	docker compose up --build -d --remove-orphans
 
@@ -35,22 +37,36 @@ banker-db:
 	docker compose exec postgres bash -c "psql -U $$POSTGRES_USER -d $$POSTGRES_DB"
 
 reset-containers:
-	docker compose down
 	docker compose down -v --remove-orphans
 	docker system prune --all --force --volumes
 	docker network create banker_local_nw
 	docker compose up --build -d --remove-orphans
 
-logs-api:
-	docker compose logs api
-
 run-test:
 	docker compose run --rm api python manage.py test $(if $(app),$(app))
 	docker compose down -v
 
+clear-dev-containers:
+	docker compose down
+
+
+logs-api:
+	docker compose logs api
+
+# Runs Github Unittest Workflow Docker Compose Commands
+
 gha-run-test:
-	docker compose -f docker-compose.test.yml run --rm api python manage.py test
+	docker compose -f docker-compose.test.yml run --rm api_test python manage.py test
 
 gha-down-test:
 	docker compose -f docker-compose.test.yml down -v
+
+gha-clear-test:
+	docker compose -f docker-compose.test.yml down -v --remove-orphans
+	docker system prune --all --force --volumes
+
+gha-reset-test:
+	docker compose -f docker-compose.test.yml down -v --remove-orphans
+	docker system prune --all --force --volumes
+	docker compose -f docker-compose.test.yml up --build -d --remove-orphans
 
