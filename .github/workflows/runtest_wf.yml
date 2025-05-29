@@ -25,8 +25,8 @@ jobs:
                 EOF
 
             - name: Run ZinaBank Tests
-              run: make -C api_test gha-run-test
+              run: make -C api gha-run-test
 
             - name: Tear down
               if: always()
-              run: make -C api_test gha-down-test
+              run: make -C api gha-down-test
