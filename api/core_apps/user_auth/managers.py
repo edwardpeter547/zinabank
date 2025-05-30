@@ -1,6 +1,6 @@
 import random
 import string
-from os import getenv
+from django.conf import settings
 from typing import Any, Optional
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import UserManager as DjangoUserManager
@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 def generate_username() -> str:
-    bank_name: str = getenv("BANK_NAME")
+    bank_name: str = settings.BANK_NAME
     prefix: str = "".join([word[0] for word in bank_name.split()]).upper()
     remaining_length: int = 12 - len(prefix) - 1
     random_chars: str = "".join(random.choices(string.ascii_uppercase + string.digits, k=remaining_length))
