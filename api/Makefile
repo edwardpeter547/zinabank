@@ -9,6 +9,9 @@ up:
 down:
 	docker compose down
 
+shell:
+	docker compose run --rm api python manage.py shell
+
 down-v:
 	docker compose down -v
 

@@ -22,7 +22,7 @@ class ContentViewAdmin(admin.ModelAdmin):
 
     readonly_fields = [
         "content_object", 
-        "object_id"
+        "object_id",
         "content_type", 
         "user", 
         "viewer_ip", 
