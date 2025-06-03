@@ -16,11 +16,10 @@ class CookieAuthentication(JWTAuthentication):
             raw_token = self.get_raw_token(header)
         elif settings.COOKIE_NAME in request.COOKIES:
             raw_token = request.COOKIES.get(settings.COOKIE_NAME)
-            return self.get_user(validated_token), validated_token
         if raw_token is not None:
             try:
                 validated_token = self.get_validated_token(raw_token)
-
+                return self.get_user(validated_token), validated_token
             except TokenError as e:
                 logger.error(f"Token validation error: {str(e)}")
         return None

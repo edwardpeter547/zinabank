@@ -168,9 +168,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
-    "DEFAULT_PAGINATION_CLASS": [
-        "rest_framework.pagination.PageNumberPagination",
-    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
     ],
@@ -204,4 +202,4 @@ LOCKOUT_DURATION = timedelta(minutes=1)
 
 LOGIN_ATTEMPTS = 3
 
-OPT_EXPIRATION  = timedelta(minutes=1)
+OTP_EXPIRATION  = timedelta(minutes=1)
