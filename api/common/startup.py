@@ -33,7 +33,7 @@ def get_stdout_logger_config() -> dict:
         "handlers": [
             {
                 "sink": sys.stdout,
-                "level": "DEBUG",
+                "level": "ERROR",
                 "format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level} | {message}",
             },
         ]

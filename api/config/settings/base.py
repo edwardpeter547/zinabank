@@ -5,6 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from os import path
 from common import get_database_config
+from core_apps import get_core_apps
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
@@ -20,6 +21,8 @@ if path.isfile(local_env_file):
 
 
 # Application definition
+
+CORE_APPS = get_core_apps()
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -47,9 +50,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "core_apps.common",
-    "core_apps.user_auth",
-    "core_apps.user_profile",
+    *CORE_APPS
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -203,3 +204,13 @@ LOCKOUT_DURATION = timedelta(minutes=1)
 LOGIN_ATTEMPTS = 3
 
 OTP_EXPIRATION  = timedelta(minutes=1)
+
+COOKIE_NAME = 'access'
+
+COOKIE_SAMESITE = 'Lax'
+
+COOKIE_PATH = "/"
+
+COOKIE_HTTPONLY = True
+
+COOKIE_SECURE = True

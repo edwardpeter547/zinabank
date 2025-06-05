@@ -96,14 +96,6 @@ cloudinary.config(
     api_secret=getenv("CLOUDINARY_API_SECRET")
 )
 
-COOKIE_NAME = 'access'
-
-COOKIE_SAMESITE = 'Lax'
-
-COOKIE_PATH = "/"
-
-COOKIE_HTTPONLY = True
-
 COOKIE_SECURE = getenv("COOKIE_SECURE", "True") == "True"
 
 LOGS_DIR = path.join(BASE_DIR, "logs")

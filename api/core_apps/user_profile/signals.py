@@ -11,7 +11,6 @@ from core_apps.user_profile.models import Profile
 def create_user_profile(sender: Type[Model], instance: Model, created: bool, **kwargs: Any):
     if created:
         Profile.objects.create(user=instance)
-        print(type(instance), instance.__class__.__name__)
         logger.info(f"Profile created for {instance.first_name} {instance.last_name}")
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
