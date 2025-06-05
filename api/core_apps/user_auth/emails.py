@@ -15,6 +15,7 @@ def send_otp_email(email, otp):
         "expiry_time": settings.OTP_EXPIRATION,
         "site_name": settings.SITE_NAME,
     }
+    print("context", context)
 
     html_email = render_to_string("emails/otp_email.html", context=context)
     plain_email = strip_tags(html_email)

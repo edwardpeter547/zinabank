@@ -42,5 +42,5 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {"loguru": {"class": "interceptor.InterceptHandler"}},
-    "root": {"handlers": ["loguru"], "level": "DEBUG"},
+    "root": {"handlers": ["loguru"], "level": "ERROR"},
 }
